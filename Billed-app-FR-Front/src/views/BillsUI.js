@@ -19,9 +19,20 @@ const row = (bill) => {
     `)
   }
 
-const rows = (data) => {
-  return (data && data.length) ? data.map(bill => row(bill)).join("") : ""
-}
+  const rows = (data) => {
+    // Check if 'data' exists and is not empty
+    return (data && data.length) 
+      // If data exists
+      ? data
+        // Sort bills from most recent to oldest using date
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        // Transform each bill into an HTML table row
+        .map(bill => row(bill))
+        // Combine all rows into a single string
+        .join("") 
+      // else no data, return empty string
+      : ""
+   }
 
 export default ({ data: bills, loading, error }) => {
   
