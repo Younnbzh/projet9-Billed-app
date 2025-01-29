@@ -144,9 +144,9 @@ export default class {
         .html("")
       this.counter ++
     }
-
+    // Clear events and reattach for all bills
     bills.forEach(bill => {
-      $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
+      $(`#open-bill${bill.id}`).off('click').click((e) => this.handleEditTicket(e, bill, bills))
     })
 
     return bills
