@@ -18,14 +18,18 @@ export default class NewBill {
   handleChangeFile = e => {
     e.preventDefault()
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
+    const errorDiv = this.document.querySelector(`#file-error-message`)
     // Validate file type
     const inputFile = this.document.querySelector(`input[data-testid="file"]`)
     const allowedTypes = ['image/jpeg', 'image/png']
     if (!allowedTypes.includes(file.type)) {
-        alert('Merci d\'uploader uniquement des fichiers JPG, JPEG, ou PNG')
+        errorDiv.textContent = "Merci d'uploader uniquement un fichier jpg, jpeg ou png"
+        errorDiv.style.display = 'block'
         inputFile.value = ''
         return
     }
+    errorDiv.style.display = 'none'
+    errorDiv.textContent = ''
     const filePath = e.target.value.split(/\\/g)
     const fileName = filePath[filePath.length-1]
     const formData = new FormData()
