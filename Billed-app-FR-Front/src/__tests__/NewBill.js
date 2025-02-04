@@ -122,6 +122,11 @@ describe("Given I am connected as an employee", () => {
         fireEvent.submit(form);
         expect(createSpy).toHaveBeenCalled();
         expect(onNavigate).toHaveBeenCalledWith(ROUTES_PATH['Bills']);
+        // on test aussi avec un pct par défaut qui doit se set à 20
+        screen.getByTestId("pct").value = "";
+        fireEvent.submit(form);
+        expect(createSpy).toHaveBeenCalled();
+        expect(onNavigate).toHaveBeenCalledWith(ROUTES_PATH['Bills']);
       });
 
       test("fetches bills from an API and fails with 404 message error", async () => {

@@ -138,7 +138,7 @@ describe("Given I am connected as an employee", () => {
         expect(bills.length).toBeGreaterThan(0);
       });
       // 404 
-      test("fetches bills from an API and fails with 404 message error", async () => {
+      test("Then it should fails with 404 message error when API fire a 404", async () => {
         // On modifie l'API mockStore.bills injecter l'erreur 404
         mockStore.bills.mockImplementationOnce(() => {
           return {
@@ -157,7 +157,7 @@ describe("Given I am connected as an employee", () => {
         expect(document.body.innerHTML).toContain("Erreur 404")
       });
       // 500 
-      test("fetches bills from an API and fails with 500 message error", async () => {
+      test("Then it should fails with 500 message error when API fire a 500", async () => {
         // On modifie l'API mockStore.bills injecter l'erreur 500
         mockStore.bills.mockImplementationOnce(() => {
           return {
@@ -175,6 +175,16 @@ describe("Given I am connected as an employee", () => {
         await expect(billsPage.getBills()).rejects.toThrow("Erreur 500")
         expect(document.body.innerHTML).toContain("Erreur 500")
       });
+    });
+    test("Then getBills return empty if api return null", () => {
+      const billsPage = new Bills({
+        document,
+        onNavigate: null,
+        store: null, 
+        localStorage: window.localStorage
+      });
+      const result = billsPage.getBills();
+      expect(result).toBeUndefined();
     });
   })
 })
